@@ -274,67 +274,67 @@ Child process finished
   - Zombies consume minimal resources but should be avoided.
   - Use `wait()` in the parent to clean up child processes.
 
-  #### 4. **Creating Multiple Child Processes**
-  You can create multiple child processes by calling `fork()` in a loop.
-  
-  **Example:**
-  ```c
-  #include <stdio.h>
-  #include <unistd.h>
-  
-  int main() {
-      for (int i = 0; i < 3; i++) {
-          pid_t pid = fork();
-          if (pid == 0) {
-              printf("Child %d: PID = %d\n", i, getpid());
-              return 0;  // Exit child process
-          }
-      }
-      // Parent process
-      printf("Parent: PID = %d\n", getpid());
-      return 0;
-  }
+#### 4. **Creating Multiple Child Processes**
+You can create multiple child processes by calling `fork()` in a loop.
+
+**Example:**
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    for (int i = 0; i < 3; i++) {
+        pid_t pid = fork();
+        if (pid == 0) {
+            printf("Child %d: PID = %d\n", i, getpid());
+            return 0;  // Exit child process
+        }
+    }
+    // Parent process
+    printf("Parent: PID = %d\n", getpid());
+    return 0;
+}
+```
+
+**Output Example:**
+```
+Child 0: PID = 2345
+Child 1: PID = 2346
+Child 2: PID = 2347
+Parent: PID = 2344
+```
+
+### **Practice Exercises**
+
+1. **Fork and Print Process Tree:**
+   - Create a program where each process creates a child until a specific depth (e.g., 3 generations).
+   - Print the hierarchy of processes with their PIDs.
+
+2. **Fork and Communicate:**
+   - Use `pipe()` to communicate data between parent and child processes.
+
+3. **Simulate a Shell:**
+   - Write a basic shell where the parent takes input and creates a child to execute commands using `exec()`.
+
+### **Debugging and Tracing**
+- Use `strace` to observe how `fork()` behaves:
+  ```bash
+  strace -e fork ./your_program
   ```
-  
-  **Output Example:**
-  ```
-  Child 0: PID = 2345
-  Child 1: PID = 2346
-  Child 2: PID = 2347
-  Parent: PID = 2344
-  ```
-  
-  ### **Practice Exercises**
-  
-  1. **Fork and Print Process Tree:**
-     - Create a program where each process creates a child until a specific depth (e.g., 3 generations).
-     - Print the hierarchy of processes with their PIDs.
-  
-  2. **Fork and Communicate:**
-     - Use `pipe()` to communicate data between parent and child processes.
-  
-  3. **Simulate a Shell:**
-     - Write a basic shell where the parent takes input and creates a child to execute commands using `exec()`.
-  
-  ### **Debugging and Tracing**
-  - Use `strace` to observe how `fork()` behaves:
-    ```bash
-    strace -e fork ./your_program
-    ```
-  - Use tools like `htop` to monitor processes created by your program.
-  
+- Use tools like `htop` to monitor processes created by your program.
+
 
 ---
 
-## How `fork()` interacts with other system calls, particularly **`exec()`** and **inter-process communication (IPC)**.
-### which are essential for process creation and collaboration.
+### How `fork()` interacts with other system calls, particularly **`exec()`** and **inter-process communication (IPC)**.
+#### which are essential for process creation and collaboration.
 
 
-### **1. Combining `fork()` with `exec()`**
+#### **1. Combining `fork()` with `exec()`**
 
 The `exec()` family of functions replaces the process image of the calling process with a new program. This is a common pattern in creating shells, where a parent process (`fork`) spawns a child and the child process (`exec`) runs a new program.
 
-#### **`fork()` + `exec()` Pattern**
+##### **`fork()` + `exec()` Pattern**
 
 1. **Parent Process:**
    - Spawns a child process using `fork()`.
@@ -344,7 +344,7 @@ The `exec()` family of functions replaces the process image of the calling proce
    - Uses `exec()` to replace itself with a new program.
    - Executes the desired command.
    - 
-#### **Example: Basic Fork-Exec**
+##### **Example: Basic Fork-Exec**
 
 ```c
 #include <stdio.h>
@@ -384,7 +384,7 @@ Child process finished.
 **Key Points:**
 - **Why use `fork()` with `exec()`?** `fork()` creates the child process, and `exec()` replaces its memory space with the new program. This keeps the parent intact for control or further operations.
 
-#### **Example: A Basic Shell**
+##### **Example: A Basic Shell**
 
 You can simulate a simple shell by combining `fork()` and `exec()`:
 
@@ -435,16 +435,16 @@ int main() {
 - Type `exit` to terminate the shell.
 
 
-### **2. Fork and Inter-Process Communication (IPC)**
+#### **2. Fork and Inter-Process Communication (IPC)**
 
 After creating multiple processes with `fork()`, they often need to communicate. IPC mechanisms like **pipes** and **shared memory** allow data exchange between processes.
 
-#### **Using `pipe()` for Communication**
+##### **Using `pipe()` for Communication**
 
 A pipe creates a unidirectional communication channel between parent and child processes. The parent writes to the pipe, and the child reads from it (or vice versa).
 
 
-#### **Example: Fork + Pipe**
+##### **Example: Fork + Pipe**
 
 This example demonstrates sending data from the parent to the child process.
 
@@ -490,10 +490,10 @@ int main() {
 Child received: Hello from parent!
 ```
 
-#### **Bidirectional Communication with Pipes**
+##### **Bidirectional Communication with Pipes**
 For two-way communication, you need two pipes: one for each direction.
 
-#### **Shared Memory (Advanced IPC)**
+##### **Shared Memory (Advanced IPC)**
 
 Shared memory allows processes to access a common memory segment, providing high-speed communication.
 
@@ -534,7 +534,6 @@ Shared memory allows processes to access a common memory segment, providing high
 ---
 
 ## **IPC (Inter-Process Communication)** mechanisms in more detail, focusing on **pipes**, **bidirectional communication with pipes**, and an introduction to **shared memory**.
-
 
 ## **1. Pipes in Depth**
 Pipes allow unidirectional communication between processes (parent to child or vice versa). They are simple to use and are often the starting point for learning IPC.
@@ -745,7 +744,6 @@ int main() {
     return 0;
 }
 ```
-
 
 ### **Output:**
 ```
