@@ -162,11 +162,11 @@ int main() {
 
 ---
 
-### 3A **Deep Dive into `fork()` - Process Creation**
+#### 3A **Deep Dive into `fork()` - Process Creation**
 
 The `fork()` system call is one of the most fundamental concepts in Unix-like operating systems. It is used to create a new process by duplicating the calling process.
 
-### **Key Concepts of `fork()`**
+#### **Key Concepts of `fork()`**
 
 1. **Process Hierarchy:**
    - The process that calls `fork()` is called the **parent process**.
@@ -186,13 +186,13 @@ The `fork()` system call is one of the most fundamental concepts in Unix-like op
    - Modifications trigger a copy of the affected memory pages (copy-on-write).
 
 
-### **Syntax**
+#### **Syntax**
 ```c
 #include <unistd.h>
 pid_t fork();
 ```
 
-### **Simple Example**
+#### **Simple Example**
 
 This example demonstrates the basic behavior of `fork()`:
 
@@ -224,15 +224,15 @@ Parent process: PID = 1234, Child PID = 1235
 Child process: PID = 1235, Parent PID = 1234
 ```
 
-### **Advanced Concepts**
+#### **Advanced Concepts**
 
-#### 1. **Differentiating Between Parent and Child**
+##### 1. **Differentiating Between Parent and Child**
 Since both processes execute the same code, use the return value of `fork()` to decide their roles:
 - Parent (`pid > 0`): Can wait for the child to complete or perform its own tasks.
 - Child (`pid == 0`): Performs specific tasks assigned to it.
 
 
-#### 2. **Using `wait()` to Synchronize**
+##### 2. **Using `wait()` to Synchronize**
 The parent process can wait for the child to finish using `wait()` or `waitpid()`.
 
 **Example with `wait()`:**
@@ -269,60 +269,60 @@ Child process: PID = 5678
 Child process finished
 ```
 
-  #### 3. **Zombie Processes**
-    - A child process becomes a **zombie** if the parent doesn’t call `wait()` or `waitpid()` after the child exits.
-    - Zombies consume minimal resources but should be avoided.
-    - Use `wait()` in the parent to clean up child processes.
+#### 3. **Zombie Processes**
+  - A child process becomes a **zombie** if the parent doesn’t call `wait()` or `waitpid()` after the child exits.
+  - Zombies consume minimal resources but should be avoided.
+  - Use `wait()` in the parent to clean up child processes.
 
-    #### 4. **Creating Multiple Child Processes**
-    You can create multiple child processes by calling `fork()` in a loop.
-    
-    **Example:**
-    ```c
-    #include <stdio.h>
-    #include <unistd.h>
-    
-    int main() {
-        for (int i = 0; i < 3; i++) {
-            pid_t pid = fork();
-            if (pid == 0) {
-                printf("Child %d: PID = %d\n", i, getpid());
-                return 0;  // Exit child process
-            }
-        }
-        // Parent process
-        printf("Parent: PID = %d\n", getpid());
-        return 0;
-    }
+  #### 4. **Creating Multiple Child Processes**
+  You can create multiple child processes by calling `fork()` in a loop.
+  
+  **Example:**
+  ```c
+  #include <stdio.h>
+  #include <unistd.h>
+  
+  int main() {
+      for (int i = 0; i < 3; i++) {
+          pid_t pid = fork();
+          if (pid == 0) {
+              printf("Child %d: PID = %d\n", i, getpid());
+              return 0;  // Exit child process
+          }
+      }
+      // Parent process
+      printf("Parent: PID = %d\n", getpid());
+      return 0;
+  }
+  ```
+  
+  **Output Example:**
+  ```
+  Child 0: PID = 2345
+  Child 1: PID = 2346
+  Child 2: PID = 2347
+  Parent: PID = 2344
+  ```
+  
+  ### **Practice Exercises**
+  
+  1. **Fork and Print Process Tree:**
+     - Create a program where each process creates a child until a specific depth (e.g., 3 generations).
+     - Print the hierarchy of processes with their PIDs.
+  
+  2. **Fork and Communicate:**
+     - Use `pipe()` to communicate data between parent and child processes.
+  
+  3. **Simulate a Shell:**
+     - Write a basic shell where the parent takes input and creates a child to execute commands using `exec()`.
+  
+  ### **Debugging and Tracing**
+  - Use `strace` to observe how `fork()` behaves:
+    ```bash
+    strace -e fork ./your_program
     ```
-    
-    **Output Example:**
-    ```
-    Child 0: PID = 2345
-    Child 1: PID = 2346
-    Child 2: PID = 2347
-    Parent: PID = 2344
-    ```
-    
-    ### **Practice Exercises**
-    
-    1. **Fork and Print Process Tree:**
-       - Create a program where each process creates a child until a specific depth (e.g., 3 generations).
-       - Print the hierarchy of processes with their PIDs.
-    
-    2. **Fork and Communicate:**
-       - Use `pipe()` to communicate data between parent and child processes.
-    
-    3. **Simulate a Shell:**
-       - Write a basic shell where the parent takes input and creates a child to execute commands using `exec()`.
-    
-    ### **Debugging and Tracing**
-    - Use `strace` to observe how `fork()` behaves:
-      ```bash
-      strace -e fork ./your_program
-      ```
-    - Use tools like `htop` to monitor processes created by your program.
-    
+  - Use tools like `htop` to monitor processes created by your program.
+  
 
 ---
 
