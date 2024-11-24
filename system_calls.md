@@ -162,7 +162,7 @@ int main() {
 
 ---
 
-### **Deep Dive into `fork()` - Process Creation**
+## 3A **Deep Dive into `fork()` - Process Creation**
 
 The `fork()` system call is one of the most fundamental concepts in Unix-like operating systems. It is used to create a new process by duplicating the calling process.
 
