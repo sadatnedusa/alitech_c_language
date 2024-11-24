@@ -1,5 +1,5 @@
 ## To learn system calls like `fork`, `exec`, `read`, `write`, and `ioctl`, you need a structured approach.
-### Here's how you can master these critical system calls step-by-step:
+### How you can master these critical system calls step-by-step:
 
 ---
 
