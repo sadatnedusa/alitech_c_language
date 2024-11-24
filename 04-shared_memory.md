@@ -6,9 +6,9 @@
 
 ### The Problem: **Synchronization**
 
-Now, imagine you and a friend are both trying to write on the same notebook at the same time. If you're not careful, one of you might accidentally overwrite the other's writing, or you might both try to change the same line at once, leading to confusion and errors. This is exactly what can happen with shared memory if multiple processes try to read from or write to the same memory location at the same time.
+- Now, imagine you and a friend are both trying to write on the same notebook at the same time. If you're not careful, one of you might accidentally overwrite the other's writing, or you might both try to change the same line at once, leading to confusion and errors. This is exactly what can happen with shared memory if multiple processes try to read from or write to the same memory location at the same time.
 
-This is where **synchronization** comes in. Synchronization ensures that only one process can access the shared memory at a time, or that access happens in an orderly way. It’s like having rules for taking turns with the notebook, so that everyone can write without interrupting each other.
+- This is where **synchronization** comes in. Synchronization ensures that only one process can access the shared memory at a time, or that access happens in an orderly way. It’s like having rules for taking turns with the notebook, so that everyone can write without interrupting each other.
 
 ### How Do We Achieve Synchronization?
 
@@ -36,7 +36,7 @@ Imagine you and your friend want to take turns writing on the shared notebook. Y
 - **Why Use a Semaphore?** Semaphores are useful when you want to control how many processes can access shared memory at the same time. If you want to allow only a few processes to access it simultaneously, you can set the semaphore to a specific number.
 
 #### Example of Semaphore:
-Imagine you and three friends want to use the shared notebook. You decide there should be a limit: only two people can write in the notebook at the same time. The semaphore is like a ticket counter that only gives out two tickets at a time. If you and one friend have the tickets, the other two must wait their turn.
+- Imagine you and three friends want to use the shared notebook. You decide there should be a limit: only two people can write in the notebook at the same time. The semaphore is like a ticket counter that only gives out two tickets at a time. If you and one friend have the tickets, the other two must wait their turn.
 
 ### Why Synchronization is Important in Shared Memory
 
