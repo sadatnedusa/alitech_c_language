@@ -203,14 +203,24 @@ This is how a **global variable definition (`int num = 10;`)** is translated fro
 
 ---
 
-# For C plus plus 
+# For C plus plus - Code That Causes the ERROR
 
-int main(void)
-{
-   int num=10; //Ok
-   Date myDate = {8,2,2025};  //ERROR
+```
+#include <iostream>
+
+class Date {
+    int day, month, year; // Private by default
+};
+
+int main(void) {
+    int num = 10;  // OK
+
+    Date myDate = {8, 2, 2025}; // ❌ ERROR: Cannot access private members
+
+    return 0;
 }
- 
+```
+
 - ERROR : Because day, month, and year of myDate are not accesible in main() becuase main() is external to class Date
 
 - Yes, the ERROR occurs because `day`, `month`, and `year` are declared as **private** members of the `Date` class by default in C++.
@@ -218,6 +228,7 @@ int main(void)
 
 ## **Understanding the Problem**
 ### **Example Code That Causes the Error**
+
 ```cpp
 #include <iostream>
 
