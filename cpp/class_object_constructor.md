@@ -317,3 +317,122 @@ int main(void) {
 - Use **Solution 3 (`struct`)** if you just need a plain data structure.
 
 🚀 **Encapsulation is key in C++ to maintain data integrity and control access!**
+
+---
+
+# **Allocation and Setting Value Are Different Steps in C++**
+
+- In C++, **allocation** and **setting a value** are **two distinct operations**, especially when dealing with **memory allocation**, **variables**, and **objects**.
+
+
+## **1. What is Allocation?**
+Allocation refers to **reserving memory** for a variable or an object in memory.  
+This step ensures that space is available but does **not necessarily initialize it with a meaningful value**.
+
+### **Example: Memory Allocation Without Initialization**
+```cpp
+int num; // Memory is allocated for 'num', but value is undefined (garbage)
+```
+- **Memory is allocated** for `num` on the stack.
+- **No initial value is assigned** → `num` contains a **garbage value**.
+
+## **2. What is Setting a Value?**
+Setting a value means **assigning a specific value** to an allocated memory location.  
+This can be done:
+- During initialization.
+- Later, using an assignment.
+
+### **Example: Setting a Value After Allocation**
+```cpp
+int num;    // Allocation (but value is undefined)
+num = 10;   // Setting the value
+```
+Here, `num` is allocated first, and then it is explicitly assigned the value `10`.
+
+## **3. When Allocation and Setting Value Happen Together?**
+In some cases, **allocation and initialization (setting a value) occur at the same time**.
+
+### **Direct Initialization**
+```cpp
+int num = 10; // Allocation + Initialization
+```
+- **Memory is allocated** for `num`.
+- **Value `10` is assigned immediately**.
+
+### **Constructor Initialization (for Classes)**
+```cpp
+class Example {
+    int x;
+public:
+    Example() { x = 100; } // Memory allocated, then x is assigned
+};
+```
+- The constructor **allocates memory** for `x` (when an object is created).
+- The value **100 is assigned** inside the constructor.
+
+## **4. Heap Allocation vs. Setting Value**
+For **dynamically allocated memory**, allocation and initialization can be separate.
+
+### **Example: Heap Allocation Without Initialization**
+```cpp
+int* ptr = new int;  // Allocates memory for an int (but contains garbage)
+*ptr = 20;           // Assigns a value
+delete ptr;          // Deallocate memory
+```
+- `new int;` **allocates** memory on the heap but does **not initialize it**.
+- `*ptr = 20;` **sets the value** in allocated memory.
+
+### **Example: Heap Allocation With Initialization**
+```cpp
+int* ptr = new int(30);  // Allocates and initializes at the same time
+```
+- `new int(30);` **allocates memory and initializes it** in a single step.
+
+## **5. Difference in Class Objects**
+For **classes**, allocation and initialization can also be separate.
+
+### **Example: Class Object Without Direct Initialization**
+```cpp
+class Example {
+    int x;
+public:
+    void setX(int val) { x = val; } // Explicit setting of value
+};
+
+int main() {
+    Example obj;   // Memory allocated for obj (but x is uninitialized)
+    obj.setX(50);  // Value is now assigned to x
+}
+```
+- The **object is allocated**, but `x` remains **uninitialized**.
+- The **value is assigned later** using `setX()`.
+
+### **Example: Class Object With Constructor Initialization**
+```cpp
+class Example {
+    int x;
+public:
+    Example() { x = 100; } // Memory allocated, value initialized
+};
+
+int main() {
+    Example obj; // Memory is allocated, and x is set to 100 immediately
+}
+```
+- The constructor **allocates and initializes** `x` in one step.
+
+## **Key Takeaways**
+| **Concept**         | **Allocation**                     | **Setting Value**                   |
+|---------------------|----------------------------------|----------------------------------|
+| **Primitive Variable** | `int num;` (allocated, uninitialized) | `num = 10;` (value assigned) |
+| **Heap Memory**       | `new int;` (allocated, uninitialized) | `*ptr = 10;` (value assigned) |
+| **Class Object**      | `Example obj;` (allocated, uninitialized) | `obj.setX(10);` (value assigned later) |
+| **Constructor**      | `Example obj;` (allocated & initialized) | Happens inside the constructor |
+
+## **Conclusion**
+🚀 **In C++, memory allocation and value assignment are two separate steps.**  
+- Allocation **reserves memory**.
+- Setting a value **stores meaningful data**.
+- **Initialization combines both in a single step.**
+
+Understanding this concept helps in **memory management, avoiding uninitialized variables, and optimizing performance**. 🎯
