@@ -1,5 +1,6 @@
+# Initialization
 ## In C++, **initialization** refers to the process of assigning an initial value to a data object at the time of memory allocation.
-This is different from **assignment**, where a value is given to an already initialized object.
+   This is different from **assignment**, where a value is given to an already initialized object.
 
 ### **Types of Initialization in C++**
 
@@ -68,6 +69,8 @@ public:
 
 ---
 
+
+# Variable initialization
 
 ## When a **global data definition statement** like:  
 ```cpp
