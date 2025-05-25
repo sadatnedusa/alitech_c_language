@@ -138,9 +138,34 @@ The **`jmp` through a table** indexed by `x` is **constant time**, `O(1)`.
 | `switch-case` | Jump table or binary search | O(1) or O(log n) |
 
 ---
-
-Would you like:
-
 * The full assembly output for this example?
 * A downloadable file with comments?
 * Or a visual comparison with annotated explanation?
+
+✅ The C source file is ready: [switch\_vs\_if.c](sandbox:/mnt/data/switch_vs_if.c)
+
+### 🔧 To Get Assembly & Disassembly:
+
+Run the following commands in your terminal (Linux with GCC installed):
+
+```bash
+# Compile to assembly
+gcc -O2 -S switch_vs_if.c -o switch_vs_if.s
+
+# Compile to object file and executable
+gcc -O2 switch_vs_if.c -o switch_vs_if
+
+# Disassemble the binary to see actual machine instructions
+objdump -d switch_vs_if > disasm.txt
+```
+
+### 📌 What You’ll Get
+
+* `switch_vs_if.s` — GCC’s **generated assembly code**.
+* `disasm.txt` — Full **disassembled binary**, showing how the compiler implemented both functions.
+* Use comments in `.s` and `.txt` to compare:
+
+  * **`test_if`** uses multiple `cmp` + `je` instructions.
+  * **`test_switch`** uses a **jump table** with a `jmp` instruction through an indexed memory address.
+
+- A pre-annotated version of the `.s` and `.txt` files for clarity (if you upload the results), or help walk through each function line-by-line?
